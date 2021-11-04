@@ -31,13 +31,16 @@ output_path = '/data/data_science/raf/'
 
 
 def main():
-    dfRAF = spark.read.parquet(input_path + 'NW_diag_HCC_raf_new_V22.parquet') 
+    dfRAF = spark.read.parquet(input_path + 'NW_diag_HCC_raf_new_V22_V24.parquet') 
     dfRAF = dfRAF.withColumn('hcc_lst', f.col('hcc_lst').cast('string'))
-    dfRAF = dfRAF.withColumn('cum_hcc_diff', f.col('cum_hcc_diff').cast('string'))
-    logger.info("CREATING csv DATASET")
-    logger.info("WRITING: {}".format(output_path + "NW_diag_HCC_raf_new_V22.csv"))
+    dfRAF = dfRAF.withColumn('cum_hcc_diff', f.col('cum_hcc_diff').cast('string')) 
+    dfRAF = dfRAF.withColumn('hcc_map_diags', f.col('hcc_map_diags').cast('string'))
+    dfRAF = dfRAF.withColumn('hcc_map_diff_diags', f.col('hcc_map_diff_diags').cast('string'))
 
-    dfRAF.coalesce(1).write.mode('overwrite').option("header", "true").option("delimiter", '|').csv('/data/data_science/raf/NW_diag_HCC_raf_new_V22.csv')
+    logger.info("CREATING csv DATASET")
+    logger.info("WRITING: {}".format(output_path + "NW_diag_HCC_raf_new_V22_V24.csv"))
+
+    dfRAF.coalesce(1).write.mode('overwrite').option("header", "true").option("delimiter", '|').csv('/data/data_science/raf/NW_diag_HCC_raf_new_V22_V24.csv')
 
 
 if __name__ == "__main__":

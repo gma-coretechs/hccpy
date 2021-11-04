@@ -1,3 +1,4 @@
+''' Diabetes and comorbidities flags '''
 from itertools import chain
 import logging
 import sys
